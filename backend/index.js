@@ -13,6 +13,6 @@ app.use(express.json());
 
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 
-app.use('/user', userRoutes);
+app.use('/users', userRoutes);
 
 app.listen(5000, () => console.log('Server running on 5000 port...'));
