@@ -12,7 +12,7 @@ const User = mongoose.model(
 			phone: { type: String, required: true },
 			image: { type: String },
 		},
-		{ timestamp: true },
+		{ timestamps: true },
 	),
 );
 

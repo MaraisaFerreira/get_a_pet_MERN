@@ -15,7 +15,7 @@ const Pet = mongoose.model(
 			user: Object,
 			adopter: Object,
 		},
-		{ timestamp: true },
+		{ timestamps: true },
 	),
 );
 
