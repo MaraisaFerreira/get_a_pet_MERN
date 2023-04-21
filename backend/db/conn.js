@@ -8,3 +8,5 @@ async function main() {
 }
 
 main().catch((err) => console.log('Connection error: ', err));
+
+module.exports = mongoose;
