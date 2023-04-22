@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 
 const User = require('../models/User');
+const createUserToken = require('../helpers/createUserToken');
 
 module.exports = class UserControllers {
 	static async register(req, res) {
@@ -55,12 +56,39 @@ module.exports = class UserControllers {
 		});
 
 		try {
-			const registeredUser = await user.save();
-			res
-				.status(201)
-				.json({ message: 'Usuário registrado com sucesso!', registeredUser });
+			const savedUser = await user.save();
+
+			await createUserToken(savedUser, req, res);
 		} catch (err) {
 			res.status(500).json({ message: err });
 		}
+	}
+
+	static async login(req, res) {
+		const { email, password } = req.body;
+
+		if (!email) {
+			res.status(422).json({ message: 'O email é um campo obrigatório!' });
+			return;
+		}
+
+		if (!password) {
+			res.status(422).json({ message: 'A senha é um campo obrigatório!' });
+			return;
+		}
+
+		const user = await User.findOne({ email });
+		if (!user) {
+			res.status(422).json({ message: 'Esse email não existe!' });
+			return;
+		}
+
+		const matchPassword = bcrypt.compareSync(password, user.password);
+		if (!matchPassword) {
+			res.status(422).json({ message: 'Senha incorreta!' });
+			return;
+		}
+
+		await createUserToken(user, req, res);
 	}
 };
