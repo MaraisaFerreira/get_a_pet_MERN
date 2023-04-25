@@ -127,7 +127,6 @@ module.exports = class UserControllers {
 	static async editUser(req, res) {
 		const { name, email, phone, password, confirmPassword, newPassword } =
 			req.body;
-		let image = '';
 
 		const token = getToken(req);
 		const user = await getUserByToken(token);
@@ -135,6 +134,14 @@ module.exports = class UserControllers {
 		if (!user) {
 			res.status(422).json({ message: 'Usuário não encontrado!' });
 			return;
+		}
+
+		if (req.file) {
+			user.image = req.file.filename;
+			console.log(
+				'🔷 | file: UserControllers.js:141 | req.file.filename:',
+				req.file.filename,
+			);
 		}
 
 		if (!name) {
@@ -185,7 +192,7 @@ module.exports = class UserControllers {
 
 		const matchPassword = bcrypt.compareSync(password, user.password);
 		if (!matchPassword) {
-			res.status(422).json({ message: 'A senha inválida!' });
+			res.status(422).json({ message: 'Senha inválida!' });
 			return;
 		}
 
@@ -196,6 +203,7 @@ module.exports = class UserControllers {
 			user.password = hashPassword;
 		}
 
+		console.log(user);
 		try {
 			const updatedUser = await User.findOneAndUpdate(
 				{ _id: user.id },

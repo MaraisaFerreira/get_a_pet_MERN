@@ -5,21 +5,21 @@ const imageStorage = multer.diskStorage({
 	destination: function (req, file, cb) {
 		let folder = '';
 
-		if (req.baseUrl.include('users')) {
+		if (req.baseUrl.includes('users')) {
 			folder = 'users';
-		} else if (req.baseUrl.include('pets')) {
+		} else if (req.baseUrl.includes('pets')) {
 			folder = 'pets';
 		}
 
 		cb(null, `public/images/${folder}`);
 	},
-	filename: function (req, file, cb) {
+	filename: (req, file, cb) => {
 		cb(null, Date.now() + path.extname(file.originalname));
 	},
 });
 
 const imageUpload = multer({
-	destination: imageStorage,
+	storage: imageStorage,
 	fileFilter(req, file, cb) {
 		if (!file.originalname.match(/\.(png|jpg)$/)) {
 			return cb(new Error('Só pode ser enviado arquivos jpg ou png.'));
