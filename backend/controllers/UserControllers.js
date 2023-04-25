@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const createUserToken = require('../helpers/createUserToken');
 const getToken = require('../helpers/getToken');
+const getUserByToken = require('../helpers/getUserByToken');
 
 module.exports = class UserControllers {
 	static async register(req, res) {
@@ -124,6 +125,86 @@ module.exports = class UserControllers {
 	}
 
 	static async editUser(req, res) {
-		res.status(200).json({ message: 'Ok' });
+		const { name, email, phone, password, confirmPassword, newPassword } =
+			req.body;
+		let image = '';
+
+		const token = getToken(req);
+		const user = await getUserByToken(token);
+
+		if (!user) {
+			res.status(422).json({ message: 'Usuário não encontrado!' });
+			return;
+		}
+
+		if (!name) {
+			res.status(422).json({ message: 'O nome é um campo obrigatório!' });
+			return;
+		}
+
+		user.name = name;
+
+		if (!email) {
+			res.status(422).json({ message: 'O email é um campo obrigatório!' });
+			return;
+		}
+
+		const existEmail = await User.findOne({ email });
+		if (existEmail && user.email !== email) {
+			res
+				.status(422)
+				.json({ message: 'Esse email já está cadastrado para outro usuário!' });
+			return;
+		}
+
+		user.email = email;
+
+		if (!phone) {
+			res
+				.status(422)
+				.json({ message: 'O número de telefone é um campo obrigatório!' });
+			return;
+		}
+
+		user.phone = phone;
+
+		if (!password) {
+			res.status(422).json({ message: 'A senha é um campo obrigatório!' });
+			return;
+		}
+		if (!confirmPassword) {
+			res
+				.status(422)
+				.json({ message: 'A confirmação de senha é um campo obrigatório!' });
+			return;
+		}
+		if (password !== confirmPassword) {
+			res.status(422).json({ message: 'As senhas não são iguais!' });
+			return;
+		}
+
+		const matchPassword = bcrypt.compareSync(password, user.password);
+		if (!matchPassword) {
+			res.status(422).json({ message: 'A senha inválida!' });
+			return;
+		}
+
+		if (newPassword) {
+			const salt = bcrypt.genSaltSync(10);
+			const hashPassword = bcrypt.hashSync(newPassword, salt);
+
+			user.password = hashPassword;
+		}
+
+		try {
+			const updatedUser = await User.findOneAndUpdate(
+				{ _id: user.id },
+				{ $set: user },
+				{ new: true },
+			);
+			res.status(200).json({ message: 'Usuário atualizado!', updatedUser });
+		} catch (error) {
+			res.status(500).json({ message: 'Falha ao atualizar usuário!' });
+		}
 	}
 };
