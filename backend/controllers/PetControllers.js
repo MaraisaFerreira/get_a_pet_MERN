@@ -7,11 +7,17 @@ module.exports = class PetControllers {
 	static async create(req, res) {
 		const { name, type, age, weight, color } = req.body;
 
+		const images = req.files;
+
 		const token = getToken(req);
 		const user = await getUserByToken(token);
 
 		if (!name) {
 			res.status(422).json({ message: 'O nome é obrigatório!' });
+			return;
+		}
+		if (images.length === 0) {
+			res.status(422).json({ message: 'Ao menos uma imagem é obrigatória!' });
 			return;
 		}
 		if (!type) {
@@ -38,13 +44,17 @@ module.exports = class PetControllers {
 			weight,
 			color,
 			available: true,
-			image: [],
+			images: [],
 			user: {
 				_id: user._id,
 				name: user.name,
 				phone: user.phone,
 				image: user.image,
 			},
+		});
+
+		images.map((image) => {
+			pet.images.push(image.filename);
 		});
 
 		try {
