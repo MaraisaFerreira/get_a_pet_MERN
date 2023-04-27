@@ -13,6 +13,10 @@ router.post(
 );
 
 router.get('/', PetControllers.getAll);
+router.get('/:id', PetControllers.getPetById);
+router.get('/all/:type', PetControllers.getPetsByType);
 router.get('/mypets', verifyToken, PetControllers.getAllUserPets);
+router.get('/myadoptions', verifyToken, PetControllers.getMyAdoptions);
+router.delete('/:id', verifyToken, PetControllers.removeById);
 
 module.exports = router;
