@@ -39,10 +39,10 @@ module.exports = class PetControllers {
 
 		const pet = new Pet({
 			name,
-			type,
+			type: type.toLowerCase(),
 			age,
 			weight,
-			color,
+			color: color.toLowerCase(),
 			available: true,
 			images: [],
 			user: {
@@ -64,4 +64,12 @@ module.exports = class PetControllers {
 			res.status(500).json({ message: err });
 		}
 	}
+
+	static async getAll(req, res) {
+		const pets = await Pet.find().sort('-createdAt');
+
+		res.status(200).json({ message: 'Todos os pets cadastrados', pets });
+	}
+
+	static async getAllUserPets(req, res) {}
 };
