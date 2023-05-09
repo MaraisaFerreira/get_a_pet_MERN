@@ -179,7 +179,50 @@ module.exports = class PetControllers {
 			return;
 		}
 
-		//!remove
-		res.status(200).json({ message: 'TEMP' });
+		if (!name) {
+			res.status(422).json({ message: 'O nome é obrigatório!' });
+			return;
+		}
+		updatedData.name = name;
+		if (images.length === 0) {
+			res.status(422).json({ message: 'Ao menos uma imagem é obrigatória!' });
+			return;
+		}
+		updatedData.images = [];
+		images.map((image) => {
+			updatedData.images.push(image.filename);
+		});
+		if (!type) {
+			res.status(422).json({ message: 'O tipo é obrigatório!' });
+			return;
+		}
+		updatedData.type = type;
+		if (!age) {
+			res.status(422).json({ message: 'A idade é obrigatória!' });
+			return;
+		}
+		updatedData.age = age;
+		if (!weight) {
+			res.status(422).json({ message: 'O peso é obrigatório!' });
+			return;
+		}
+		updatedData.weight = weight;
+		if (!color) {
+			res.status(422).json({ message: 'A cor é obrigatória!' });
+			return;
+		}
+		updatedData.color = color;
+		if (!available) {
+			res.status(422).json({ message: 'O pet continua disponível?' });
+			return;
+		}
+		updatedData.available = available;
+
+		try {
+			await Pet.findByIdAndUpdate(id, updatedData);
+			res.status(200).json({ message: 'Pet alterado com sucesso!' });
+		} catch (err) {
+			res.status(500).json({ message: 'Ops, ocorreu um erro!' });
+		}
 	}
 };
