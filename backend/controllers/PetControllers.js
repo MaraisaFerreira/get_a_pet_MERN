@@ -150,4 +150,36 @@ module.exports = class PetControllers {
 
 		res.status(200).json({ message: 'Pet removido com sucesso!' });
 	}
+
+	static async updateById(req, res) {
+		const id = req.params.id;
+		const { name, age, type, color, weight, available } = req.body;
+		const images = req.files;
+
+		const updatedData = {};
+
+		if (!ObjectId.isValid(id)) {
+			res.status(422).json({ message: 'Id inválido' });
+			return;
+		}
+
+		const pet = await Pet.findOne({ _id: id });
+		if (!pet) {
+			res.status(404).json({ message: 'Pet não encontrado' });
+			return;
+		}
+
+		const token = getToken(req);
+		const user = await getUserByToken(token);
+
+		if (pet.user._id.toString() !== user._id.toString()) {
+			res
+				.status(422)
+				.json({ message: 'Você não tem autorização para remover esse pet.' });
+			return;
+		}
+
+		//!remove
+		res.status(200).json({ message: 'TEMP' });
+	}
 };
