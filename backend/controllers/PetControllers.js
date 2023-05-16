@@ -225,4 +225,37 @@ module.exports = class PetControllers {
 			res.status(500).json({ message: 'Ops, ocorreu um erro!' });
 		}
 	}
+
+	static async schedule(req, res) {
+		const id = req.params.id;
+
+		const pet = await Pet.findById(id);
+
+		if (!pet) {
+			res.status(404).json({ message: 'Pet não encontrado.' });
+			return;
+		}
+
+		const token = getToken(req);
+		const user = await getUserByToken(token);
+
+		if (pet.user._id.equals(user._id)) {
+			res.status(202).json({ message: 'Esse pet já é seu!' });
+			return;
+		}
+
+		if (pet.adopter?._id.equals(user._id)) {
+			res.status(202).json({ message: 'Você já agendou uma visita!' });
+			return;
+		}
+
+		pet.adopter = {
+			_id: user._id,
+			name: user.name,
+			image: user.image,
+		};
+
+		await Pet.findByIdAndUpdate(id, pet);
+		res.status(200).json({ message: 'Visita solicitada.' });
+	}
 };
