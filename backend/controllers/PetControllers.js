@@ -255,7 +255,11 @@ module.exports = class PetControllers {
 			image: user.image,
 		};
 
-		await Pet.findByIdAndUpdate(id, pet);
-		res.status(200).json({ message: 'Visita solicitada.' });
+		try {
+			await Pet.findByIdAndUpdate(id, pet);
+			res.status(200).json({ message: 'Visita solicitada.' });
+		} catch (error) {
+			res.status(500).json({ message: error });
+		}
 	}
 };
