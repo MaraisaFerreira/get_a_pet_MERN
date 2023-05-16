@@ -262,4 +262,31 @@ module.exports = class PetControllers {
 			res.status(500).json({ message: error });
 		}
 	}
+
+	static async completeAdoption(req, res) {
+		const id = req.params.id;
+
+		const pet = await Pet.findById(id);
+		if (!pet) {
+			res.status(404).json({ message: 'Pet não encontrado!' });
+			return;
+		}
+
+		const token = getToken(req);
+		const user = await getUserByToken(token);
+
+		if (!pet.user._id.equals(user._id)) {
+			res.status(202).json({ message: 'Esse pet não é seu.' });
+			return;
+		}
+
+		pet.available = false;
+
+		try {
+			await Pet.findByIdAndUpdate(id, pet);
+			res.status(200).json({ message: 'Adoção concluída com sucesso' });
+		} catch (error) {
+			res.status(500).json({ message: error });
+		}
+	}
 };
