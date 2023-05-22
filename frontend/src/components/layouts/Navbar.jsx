@@ -1,15 +1,19 @@
 import { Link } from 'react-router-dom';
 
+/* assets */
 import Logo from '../../assets/img/cat.png';
+
+/* css */
+import style from './Navbar.module.css';
 
 function Navbar() {
 	return (
-		<nav>
-			<div>
+		<nav className={style.navbar}>
+			<div className={style.navbar_logo}>
 				<img src={Logo} alt='Get A Pet' />
 				<h2>Get A Pet</h2>
 			</div>
-			<ol>
+			<ul>
 				<li>
 					<Link to='/'>Home</Link>
 				</li>
@@ -19,7 +23,7 @@ function Navbar() {
 				<li>
 					<Link to='/register'>Cadastrar</Link>
 				</li>
-			</ol>
+			</ul>
 		</nav>
 	);
 }
