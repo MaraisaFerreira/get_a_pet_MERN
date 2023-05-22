@@ -1,10 +1,13 @@
 import Input from '../../form/Input';
 
+/* css */
+import style from '../../form/Form.module.css';
+
 function Register() {
 	function handleOnChange(e) {}
 
 	return (
-		<section>
+		<section className={style.form_container}>
 			<h1>Cadastrar</h1>
 			<form>
 				<Input
@@ -22,6 +25,13 @@ function Register() {
 					handleOnChange={handleOnChange}
 				/>
 				<Input
+					type='text'
+					text='Telefone:'
+					name='phone'
+					placeholder='Digite seu telefone'
+					handleOnChange={handleOnChange}
+				/>
+				<Input
 					type='password'
 					text='Senha:'
 					name='password'
@@ -35,7 +45,7 @@ function Register() {
 					placeholder='Confirme a senha'
 					handleOnChange={handleOnChange}
 				/>
-				<button type='submit'>Cadastrar</button>
+				<input type='submit' value='Cadastrar' />
 			</form>
 		</section>
 	);
