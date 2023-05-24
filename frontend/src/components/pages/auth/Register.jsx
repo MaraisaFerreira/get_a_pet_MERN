@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Input from '../../form/Input';
@@ -6,8 +6,12 @@ import Input from '../../form/Input';
 /* css */
 import style from '../../form/Form.module.css';
 
+/* context */
+import { Context } from '../../../context/UserContext';
+
 function Register() {
 	const [user, setUser] = useState({});
+	const { register } = useContext(Context);
 
 	function handleOnChange(e) {
 		setUser({ ...user, [e.target.name]: e.target.value });
@@ -17,6 +21,7 @@ function Register() {
 		e.preventDefault();
 
 		console.log(user);
+		register(user);
 	}
 
 	return (
