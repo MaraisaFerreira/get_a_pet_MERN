@@ -8,6 +8,7 @@ import Register from './components/pages/auth/Register';
 /* components */
 import Container from './components/layouts/Container';
 import Footer from './components/layouts/Footer';
+import Message from './components/layouts/Message';
 import Navbar from './components/layouts/Navbar';
 
 /* context */
@@ -18,6 +19,7 @@ function App() {
 		<Router>
 			<UserProvider>
 				<Navbar />
+				<Message />
 				<Container>
 					<Routes>
 						<Route path='/login' element={<Login />} />
