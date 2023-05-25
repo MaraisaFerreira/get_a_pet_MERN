@@ -20,7 +20,6 @@ function Register() {
 	function handleSubmit(e) {
 		e.preventDefault();
 
-		console.log(user);
 		register(user);
 	}
 

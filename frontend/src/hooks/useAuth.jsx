@@ -11,6 +11,9 @@ export default function useAuth() {
 	const [authenticated, setAuthenticated] = useState(false);
 	const navigate = useNavigate();
 
+	let msgTxt;
+	let type;
+
 	useEffect(() => {
 		const token = localStorage.getItem('token');
 
@@ -21,13 +24,12 @@ export default function useAuth() {
 	}, []);
 
 	async function register(user) {
-		let msgTxt = 'Cadastro realizado com sucesso!';
-		let type = 'success';
-
 		try {
 			const data = await api.post('/users/register', user).then((response) => {
 				return response.data;
 			});
+			msgTxt = 'Cadastro realizado com sucesso!';
+			type = 'success';
 			await authUser(data);
 		} catch (err) {
 			msgTxt = err.response.data.message;
@@ -43,5 +45,15 @@ export default function useAuth() {
 		navigate('/');
 	}
 
-	return { authenticated, register };
+	function logout() {
+		msgTxt = 'Deslogado!';
+		type = 'success';
+
+		setAuthenticated(false);
+		localStorage.removeItem('token');
+		api.defaults.headers.Authorization = undefined;
+		navigate('/');
+	}
+
+	return { authenticated, register, logout };
 }
