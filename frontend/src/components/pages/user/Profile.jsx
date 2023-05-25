@@ -1,9 +1,14 @@
+/* styles */
 import formStyle from '../../form/Form.module.css';
 import style from './Profile.module.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+/* components */
 import Input from '../../form/Input';
+
+/* api */
+import api from '../../../utils/api';
 
 function Profile() {
 	function handleOnChange(e) {}
@@ -15,6 +20,19 @@ function Profile() {
 	}
 
 	const [user, setUser] = useState({});
+	const [token] = useState(localStorage.getItem('token') || '');
+
+	useEffect(() => {
+		api
+			.get('/users/checkuser', {
+				headers: {
+					Authorization: `Bearer ${JSON.parse(token)}`,
+				},
+			})
+			.then((response) => {
+				setUser(response.data);
+			});
+	}, [token]);
 
 	return (
 		<section>
@@ -53,7 +71,6 @@ function Profile() {
 					name='image'
 					placeholder='Upload de imagem'
 					handleOnChange={handleFile}
-					value={user.name || ''}
 				/>
 				<Input
 					type='password'
