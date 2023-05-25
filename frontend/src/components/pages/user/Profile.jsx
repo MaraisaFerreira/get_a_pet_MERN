@@ -10,17 +10,48 @@ import Input from '../../form/Input';
 /* api */
 import api from '../../../utils/api';
 
+/* hooks */
+import useFlashMessage from '../../../hooks/useFlashMessage';
+
 function Profile() {
-	function handleOnChange(e) {}
-
-	function handleFile(e) {}
-
-	function handleSubmit(e) {
-		e.preventDefault();
-	}
-
 	const [user, setUser] = useState({});
 	const [token] = useState(localStorage.getItem('token') || '');
+	const { setFlashMessage } = useFlashMessage();
+
+	function handleOnChange(e) {
+		setUser({ ...user, [e.target.name]: e.target.value });
+	}
+
+	function handleFile(e) {
+		setUser({ ...user, [e.target.name]: e.target.files[0] });
+	}
+
+	async function handleSubmit(e) {
+		e.preventDefault();
+		let msgType = 'success';
+
+		const formData = new FormData();
+		await Object.keys(user).forEach((key) => formData.append(key, user[key]));
+
+		const data = await api
+			.patch('/users/edit', formData, {
+				headers: {
+					Authorization: `Bearer ${JSON.parse(token)}`,
+					'Content-Type': 'multipart/form-data',
+				},
+			})
+			.then((response) => {
+				console.log('Response', response);
+				return response.data;
+			})
+			.catch((err) => {
+				console.log('err', err);
+				msgType = 'error';
+				return err.response.data;
+			});
+
+		setFlashMessage(data.message, msgType);
+	}
 
 	useEffect(() => {
 		api
