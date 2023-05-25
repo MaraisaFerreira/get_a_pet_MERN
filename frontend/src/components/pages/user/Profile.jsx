@@ -41,11 +41,9 @@ function Profile() {
 				},
 			})
 			.then((response) => {
-				console.log('Response', response);
 				return response.data;
 			})
 			.catch((err) => {
-				console.log('err', err);
 				msgType = 'error';
 				return err.response.data;
 			});
