@@ -10,6 +10,7 @@ import Container from './components/layouts/Container';
 import Footer from './components/layouts/Footer';
 import Message from './components/layouts/Message';
 import Navbar from './components/layouts/Navbar';
+import Profile from './components/pages/user/Profile';
 
 /* context */
 import { UserProvider } from './context/UserContext';
@@ -23,6 +24,7 @@ function App() {
 				<Container>
 					<Routes>
 						<Route path='/login' element={<Login />} />
+						<Route path='/users/profile' element={<Profile />} />
 						<Route path='/register' element={<Register />} />
 						<Route path='/' element={<Home />} />
 					</Routes>
