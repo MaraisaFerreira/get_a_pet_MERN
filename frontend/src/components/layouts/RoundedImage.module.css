@@ -1,0 +1,11 @@
+.rounded_image {
+	width: 200px;
+	height: 200px;
+	border-radius: 100%;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.rounded_image.px75 {
+	width: 75px;
+	height: 75px;
+}
