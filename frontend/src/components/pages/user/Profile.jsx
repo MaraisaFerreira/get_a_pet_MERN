@@ -15,6 +15,7 @@ import useFlashMessage from '../../../hooks/useFlashMessage';
 
 function Profile() {
 	const [user, setUser] = useState({});
+	const [preview, setPreview] = useState();
 	const [token] = useState(localStorage.getItem('token') || '');
 	const { setFlashMessage } = useFlashMessage();
 
@@ -23,7 +24,9 @@ function Profile() {
 	}
 
 	function handleFile(e) {
+		setPreview(e.target.files[0]);
 		setUser({ ...user, [e.target.name]: e.target.files[0] });
+		console.log(preview);
 	}
 
 	async function handleSubmit(e) {
@@ -67,7 +70,16 @@ function Profile() {
 		<section>
 			<div className={style.profile_header}>
 				<h1>Perfil</h1>
-				<p>Image preview</p>
+				{(user.image || preview) && (
+					<img
+						src={
+							preview
+								? URL.createObjectURL(preview)
+								: `http://localhost:5000/images/users/${user.image}`
+						}
+						alt={user.name}
+					/>
+				)}
 			</div>
 			<form className={formStyle.form_container} onSubmit={handleSubmit}>
 				<Input
