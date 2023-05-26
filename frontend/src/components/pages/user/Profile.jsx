@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 /* components */
 import Input from '../../form/Input';
+import RoundedImage from '../../layouts/RoundedImage';
 
 /* api */
 import api from '../../../utils/api';
@@ -71,7 +72,7 @@ function Profile() {
 			<div className={style.profile_header}>
 				<h1>Perfil</h1>
 				{(user.image || preview) && (
-					<img
+					<RoundedImage
 						src={
 							preview
 								? URL.createObjectURL(preview)
