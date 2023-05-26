@@ -16,6 +16,11 @@
 	font-family: Helvetica, sans-serif;
 }
 
+body {
+	background-image: url('assets/img/bg-cat.png');
+	background-repeat: repeat;
+}
+
 h1 {
 	color: var(--blue-accent);
 	margin-bottom: 1em;
