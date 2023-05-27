@@ -17,8 +17,7 @@
 }
 
 body {
-	background-image: url('assets/img/bg-cat.png');
-	background-repeat: repeat;
+	background-color: #f8f8ff;
 }
 
 h1 {
