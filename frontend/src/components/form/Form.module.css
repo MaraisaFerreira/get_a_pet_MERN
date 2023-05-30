@@ -6,8 +6,18 @@
 	background-color: var(--white-bg);
 }
 
-.form_container input[type='file'] {
+.form_container input {
 	background-color: #fff;
+}
+
+.form_container input::-webkit-outer-spin-button,
+.form_container input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.form_container input[type='number'] {
+	-moz-appearance: textfield; /* Firefox */
 }
 
 .form_container input[type='submit'] {
@@ -37,4 +47,20 @@
 	color: var(--blue-accent);
 	font-weight: bold;
 	text-decoration: none;
+}
+
+/* pets */
+.preview_imgs_pet {
+	display: flex;
+	justify-content: center;
+	margin: 1em;
+}
+
+.preview_imgs_pet img {
+	width: 100px;
+	height: 100px;
+	border-radius: 5px;
+	border: 2px solid var(--blue-accent);
+	margin-left: 1em;
+	box-shadow: 1px 1px 5px #0005;
 }
