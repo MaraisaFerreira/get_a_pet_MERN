@@ -10,6 +10,8 @@ import Container from './components/layouts/Container';
 import Footer from './components/layouts/Footer';
 import Message from './components/layouts/Message';
 import Navbar from './components/layouts/Navbar';
+import AddPets from './components/pages/pets/AddPets';
+import MyPets from './components/pages/pets/MyPets';
 import Profile from './components/pages/user/Profile';
 
 /* context */
@@ -27,6 +29,8 @@ function App() {
 						<Route path='/users/profile' element={<Profile />} />
 						<Route path='/register' element={<Register />} />
 						<Route path='/' element={<Home />} />
+						<Route path='/pets/mypets' element={<MyPets />} />
+						<Route path='/pets/add' element={<AddPets />} />
 					</Routes>
 				</Container>
 				<Footer />
