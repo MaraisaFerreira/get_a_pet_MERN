@@ -13,5 +13,6 @@ module.exports = {
 		'react-refresh/only-export-components': 'warn',
 		'react/prop-types': 'off',
 		'no-unused-vars': 'off',
+		'no-mixed-spaces-and-tabs': 0,
 	},
 };
