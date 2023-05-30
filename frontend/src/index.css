@@ -4,6 +4,8 @@
 
 	--footer-bg: #eee;
 	--footer-border: #555;
+
+	--white-bg: #f8f8ff;
 }
 
 * {
@@ -17,7 +19,7 @@
 }
 
 body {
-	background-color: #f8f8ff;
+	background-color: var(--white-bg);
 }
 
 h1 {

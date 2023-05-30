@@ -3,6 +3,11 @@
 	margin: 0 auto;
 	background-color: #fff;
 	border-radius: 15px;
+	background-color: var(--white-bg);
+}
+
+.form_container input[type='file'] {
+	background-color: #fff;
 }
 
 .form_container input[type='submit'] {
