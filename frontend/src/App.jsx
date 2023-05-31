@@ -10,8 +10,8 @@ import Container from './components/layouts/Container';
 import Footer from './components/layouts/Footer';
 import Message from './components/layouts/Message';
 import Navbar from './components/layouts/Navbar';
-import AddPets from './components/pages/pets/AddPets';
-import MyPets from './components/pages/pets/MyPets';
+import AddPets from './components/pages/pet/AddPets';
+import MyPets from './components/pages/pet/MyPets';
 import Profile from './components/pages/user/Profile';
 
 /* context */
