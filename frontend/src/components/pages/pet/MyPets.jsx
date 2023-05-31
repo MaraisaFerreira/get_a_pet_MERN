@@ -1,10 +1,23 @@
 import { Link } from 'react-router-dom';
 
+import api from '../../../utils/api';
+
 /* hooks */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function MyPets() {
 	const [pets, setPets] = useState([]);
+	const [token] = useState(localStorage.getItem('token') || '');
+
+	useEffect(() => {
+		api
+			.get('/pets/mypets', {
+				headers: { Authorization: `Bearer ${JSON.parse(token)}` },
+			})
+			.then((response) => {
+				setPets(response.data.pets);
+			});
+	}, [token]);
 
 	return (
 		<section>
