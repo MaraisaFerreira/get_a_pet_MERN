@@ -52,13 +52,12 @@ function MyPets() {
 	return (
 		<section>
 			<div className={dashStyle.petslist_header}>
-				<h1>My Pets</h1>
+				<h1>Meus pets cadastrados.</h1>
 				<Link to='/pets/add'>Cadastrar Pet</Link>
 			</div>
 			<div className={dashStyle.pet_container}>
 				{pets.length > 0 ? (
 					<>
-						<h2>Meus pets cadastrados.</h2>
 						{pets.map((pet) => (
 							<div key={pet._id} className={dashStyle.petlist_row}>
 								<RoundedImage
