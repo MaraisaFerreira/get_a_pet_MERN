@@ -2,6 +2,12 @@ import { Link } from 'react-router-dom';
 
 import api from '../../../utils/api';
 
+/* styles */
+import dashStyle from './Dashboard.module.css';
+
+/* components */
+import RoundedImage from '../../layouts/RoundedImage';
+
 /* hooks */
 import { useEffect, useState } from 'react';
 
@@ -27,7 +33,32 @@ function MyPets() {
 			</div>
 			<div>
 				{pets.length > 0 ? (
-					<p>Meus Pets Cadastrados</p>
+					<>
+						<h2>Meus pets cadastrados.</h2>
+						{pets.map((pet) => (
+							<div key={pet._id}>
+								<RoundedImage
+									src={`${import.meta.env.VITE_REACT_APP_API}/images/pets/${
+										pet.images[0]
+									}`}
+									alt={pet.name}
+									width='px75'
+								/>
+								<span className='bold'>{pet.name}</span>
+								<div className={dashStyle.actions}>
+									{pet.available ? (
+										<>
+											{pet.adopter && <button>Concluir adoção</button>}
+											<Link to={`/pets/edit/${pet._id}`}>Editar</Link>
+											<button>Excluir</button>
+										</>
+									) : (
+										<p>Pet já adotado.</p>
+									)}
+								</div>
+							</div>
+						))}
+					</>
 				) : (
 					<p>Você ainda não cadastrou nenhum pet.</p>
 				)}
