@@ -10,10 +10,12 @@ import RoundedImage from '../../layouts/RoundedImage';
 
 /* hooks */
 import { useEffect, useState } from 'react';
+import useFlashMessage from '../../../hooks/useFlashMessage';
 
 function MyPets() {
 	const [pets, setPets] = useState([]);
 	const [token] = useState(localStorage.getItem('token') || '');
+	const { setFlashMessage } = useFlashMessage();
 
 	useEffect(() => {
 		api
@@ -25,18 +27,40 @@ function MyPets() {
 			});
 	}, [token]);
 
+	async function handleDeletePet(id) {
+		let msgType = 'success';
+
+		const data = await api
+			.delete(`/pets/${id}`, {
+				headers: {
+					Authorization: `Bearer ${JSON.parse(token)}`,
+				},
+			})
+			.then((response) => {
+				const updatedPets = pets.filter((pet) => pet._id != id);
+				setPets(updatedPets);
+				return response.data;
+			})
+			.catch((err) => {
+				msgType = 'error';
+				return err.response.data;
+			});
+
+		setFlashMessage(data.message, msgType);
+	}
+
 	return (
 		<section>
-			<div>
+			<div className={dashStyle.petslist_header}>
 				<h1>My Pets</h1>
 				<Link to='/pets/add'>Cadastrar Pet</Link>
 			</div>
-			<div>
+			<div className={dashStyle.pet_container}>
 				{pets.length > 0 ? (
 					<>
 						<h2>Meus pets cadastrados.</h2>
 						{pets.map((pet) => (
-							<div key={pet._id}>
+							<div key={pet._id} className={dashStyle.petlist_row}>
 								<RoundedImage
 									src={`${import.meta.env.VITE_REACT_APP_API}/images/pets/${
 										pet.images[0]
@@ -50,7 +74,9 @@ function MyPets() {
 										<>
 											{pet.adopter && <button>Concluir adoção</button>}
 											<Link to={`/pets/edit/${pet._id}`}>Editar</Link>
-											<button>Excluir</button>
+											<button onClick={() => handleDeletePet(pet._id)}>
+												Excluir
+											</button>
 										</>
 									) : (
 										<p>Pet já adotado.</p>
