@@ -41,10 +41,10 @@ module.exports = class PetControllers {
 
 		const pet = new Pet({
 			name,
-			type: type.toLowerCase(),
+			type,
 			age,
 			weight,
-			color: color.toLowerCase(),
+			color,
 			available: true,
 			images: [],
 			user: {
@@ -97,9 +97,7 @@ module.exports = class PetControllers {
 			type = type.slice(0, -1);
 		}
 
-		const pets = await Pet.find({ type: type.toLowerCase() }).sort(
-			'-createdAt',
-		);
+		const pets = await Pet.find({ type }).sort('-createdAt');
 
 		res.status(200).json({ message: `Todos os ${type} para adoção.`, pets });
 	}
