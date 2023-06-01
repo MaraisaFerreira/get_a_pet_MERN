@@ -31,13 +31,6 @@
 	flex-direction: column;
 }
 
-h2 {
-	min-width: 100%;
-	text-align: center;
-	color: var(--blue-accent);
-	margin: 0.5em;
-}
-
 .petlist_row {
 	border-bottom: 1px solid var(--blue-accent);
 	padding: 1em;
