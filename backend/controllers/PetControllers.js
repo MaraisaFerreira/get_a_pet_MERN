@@ -182,14 +182,13 @@ module.exports = class PetControllers {
 			return;
 		}
 		updatedData.name = name;
-		if (images.length === 0) {
-			res.status(422).json({ message: 'Ao menos uma imagem é obrigatória!' });
-			return;
+
+		if (images.length > 0) {
+			updatedData.images = [];
+			images.map((image) => {
+				updatedData.images.push(image.filename);
+			});
 		}
-		updatedData.images = [];
-		images.map((image) => {
-			updatedData.images.push(image.filename);
-		});
 		if (!type) {
 			res.status(422).json({ message: 'O tipo é obrigatório!' });
 			return;
