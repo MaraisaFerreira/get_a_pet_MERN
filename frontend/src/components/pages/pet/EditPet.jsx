@@ -4,6 +4,7 @@ import styles from './AddPets.module.css';
 /* hooks */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useFlashMessage from '../../../hooks/useFlashMessage';
 
 /* components */
 import PetForm from '../../form/PetForm';
@@ -14,6 +15,7 @@ function EditPet() {
 	const { id } = useParams();
 	const [pet, setPet] = useState({});
 	const [token] = useState(localStorage.getItem('token') || '');
+	const { setFlashMessage } = useFlashMessage();
 
 	useEffect(() => {
 		api
@@ -30,7 +32,42 @@ function EditPet() {
 			});
 	}, [token, id]);
 
-	async function updatePet(e) {}
+	async function updatePet(pet) {
+		let msgType = 'success';
+
+		const formData = new FormData();
+
+		const petFormData = await Object.keys(pet).forEach((key) => {
+			if (key === 'images') {
+				pet[key].forEach((image) => {
+					formData.append('images', image);
+				});
+			} else {
+				formData.append(key, pet[key]);
+			}
+		});
+
+		formData.append('pet', petFormData);
+
+		const data = await api
+			.patch(`pets/${pet._id}`, formData, {
+				headers: {
+					Authorization: `Bearer ${JSON.parse(token)}`,
+					'Content-Type': 'multipart/form-data',
+				},
+			})
+			.then((response) => {
+				console.log(response.data);
+				return response.data;
+			})
+			.catch((err) => {
+				console.log(err);
+				msgType = 'error';
+				return err.response.data;
+			});
+
+		setFlashMessage(data.message, msgType);
+	}
 
 	return (
 		<section>
