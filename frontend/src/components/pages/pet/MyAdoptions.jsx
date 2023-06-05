@@ -43,6 +43,13 @@ function MyAdoptions() {
 									width='px75'
 								/>
 								<span className='bold'>{pet.name}</span>
+								<p>
+									Entre em contato com
+									<span className='bold'> {pet.user.name} </span>
+									<br></br>
+									pelo telefone:<span className='bold'> {pet.user.phone} </span>
+									para combinar a visita.
+								</p>
 								<div className={styles.actions}>
 									{pet.available ? (
 										<p>Adoção em andamento.</p>

@@ -26,7 +26,9 @@ function PetDetails() {
 
 		const data = await api
 			.patch(`/pets/schedule/${id}`, {
-				Authorization: `Bearer ${JSON.parse(token)}`,
+				headers: {
+					Authorization: `Bearer ${JSON.parse(token)}`,
+				},
 			})
 			.then((response) => {
 				return response.data;
