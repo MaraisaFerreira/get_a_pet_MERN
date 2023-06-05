@@ -3,7 +3,7 @@ import styles from './AddPets.module.css';
 
 /* hooks */
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useFlashMessage from '../../../hooks/useFlashMessage';
 
 /* components */
@@ -16,6 +16,7 @@ function EditPet() {
 	const [pet, setPet] = useState({});
 	const [token] = useState(localStorage.getItem('token') || '');
 	const { setFlashMessage } = useFlashMessage();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		api
@@ -67,6 +68,7 @@ function EditPet() {
 			});
 
 		setFlashMessage(data.message, msgType);
+		navigate('/pets/mypets');
 	}
 
 	return (
