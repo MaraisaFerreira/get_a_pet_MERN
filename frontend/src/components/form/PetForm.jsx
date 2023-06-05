@@ -74,13 +74,6 @@ function PetForm({ petData, textSubmit, handleSubmit }) {
 					  ))}
 			</div>
 			<Input
-				text='Imagens do pet'
-				name='images'
-				type='file'
-				handleOnChange={handleFileChange}
-				multiple={true}
-			/>
-			<Input
 				text='Nome'
 				type='text'
 				name='name'
@@ -103,6 +96,13 @@ function PetForm({ petData, textSubmit, handleSubmit }) {
 				placeholder='Peso do pet'
 				handleOnChange={handleOnChange}
 				value={pet.weight || ''}
+			/>
+			<Input
+				text='Imagens do pet'
+				name='images'
+				type='file'
+				handleOnChange={handleFileChange}
+				multiple={true}
 			/>
 			<InputSelect
 				name='type'
