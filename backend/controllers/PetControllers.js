@@ -320,7 +320,7 @@ module.exports = class PetControllers {
 		}
 
 		Pet.findOneAndUpdate({ _id: id }, { $unset: { adopter: 1 } })
-			.then((_) => {
+			.then(() => {
 				res.status(200).json({ message: 'Dado alterado com sucesso.' });
 			})
 			.catch((err) => {
