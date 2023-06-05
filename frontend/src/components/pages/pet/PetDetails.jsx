@@ -1,3 +1,6 @@
+/* styles */
+import styles from './PetDetails.module.css';
+
 import api from '../../../utils/api';
 
 /* hooks */
@@ -21,18 +24,22 @@ function PetDetails() {
 	return (
 		<>
 			{pet.name && (
-				<section>
-					<div>
+				<section className={styles.pet_details_container}>
+					<div className={styles.petdetails_header}>
 						<h1>{pet.name}</h1>
 						<p>Marque uma visita para conhecer o pet. 😊</p>
 					</div>
-					{pet.images.map((image, idx) => (
-						<img
-							src={`${import.meta.env.VITE_REACT_APP_API}/images/pets/${image}`}
-							alt={pet.name}
-							key={idx}
-						/>
-					))}
+					<div className={styles.pet_images}>
+						{pet.images.map((image, idx) => (
+							<img
+								src={`${
+									import.meta.env.VITE_REACT_APP_API
+								}/images/pets/${image}`}
+								alt={pet.name}
+								key={idx}
+							/>
+						))}
+					</div>
 					<p>
 						<span className='bold'>Idade:</span>
 						{pet.age} anos
