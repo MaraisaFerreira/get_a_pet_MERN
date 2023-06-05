@@ -88,6 +88,16 @@
 	background-color: #25b456;
 }
 
+.actions .refuse_btn {
+	color: #721c24;
+	border-color: #721c24;
+}
+
+.actions .refuse_btn:hover {
+	color: #fff;
+	background-color: #721c24;
+}
+
 /* my adoptions */
 .contacts {
 	margin-left: 2em;
