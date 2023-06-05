@@ -88,7 +88,7 @@ module.exports = class PetControllers {
 
 		const pets = await Pet.find({ 'adopter._id': user._id }).sort('-createdAt');
 
-		res.status(200).json({ message: 'Seus pets salvos.', pets });
+		res.status(200).json({ message: 'Visitas solicitadas.', pets });
 	}
 
 	static async getPetsByType(req, res) {
