@@ -246,6 +246,14 @@ module.exports = class PetControllers {
 			return;
 		}
 
+		if (!pet.adopter?._id.equals(user._id)) {
+			res.status(422).json({
+				message:
+					'Outra pessoa já agendou uma visita.\nAdote outro pet ou aguarde para ver se esse será mesmo adotado. 😊',
+			});
+			return;
+		}
+
 		pet.adopter = {
 			_id: user._id,
 			name: user.name,
