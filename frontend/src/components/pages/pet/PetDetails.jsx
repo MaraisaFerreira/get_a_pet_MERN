@@ -69,8 +69,9 @@ function PetDetails() {
 						<button onClick={schedule}>Solicitar visita</button>
 					) : (
 						<p>
-							Crie uma conta <Link to='\register'>aqui</Link> ou faça
-							<Link to='/login'>login</Link>
+							Para agendar uma visita,
+							<Link to='\register'> crie uma conta</Link> ou faça
+							<Link to='/login'> login</Link>
 						</p>
 					)}
 				</section>
