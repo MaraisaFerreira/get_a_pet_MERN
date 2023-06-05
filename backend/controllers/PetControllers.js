@@ -262,6 +262,10 @@ module.exports = class PetControllers {
 
 	static async completeAdoption(req, res) {
 		const id = req.params.id;
+		if (!ObjectId.isValid(id)) {
+			res.status(422).json({ message: 'Id inválido' });
+			return;
+		}
 
 		const pet = await Pet.findById(id);
 		if (!pet) {
@@ -285,5 +289,42 @@ module.exports = class PetControllers {
 		} catch (error) {
 			res.status(500).json({ message: error });
 		}
+	}
+
+	static async refuseAdoption(req, res) {
+		const id = req.params.id;
+		const token = getToken(req);
+
+		if (!ObjectId.isValid(id)) {
+			res.status(422).json({ message: 'Id inválido' });
+			return;
+		}
+
+		const pet = await Pet.findById(id);
+		if (!pet) {
+			res.status(404).json({ message: 'Pet não encontrado' });
+			return;
+		}
+
+		const user = await getUserByToken(token);
+		if (!user) {
+			res.status(422).json({ message: 'Acesso negado' });
+			return;
+		}
+
+		if (!pet.user._id.equals(user._id)) {
+			res
+				.status(422)
+				.json({ message: 'Você não tem autorização para alterar esse pet' });
+			return;
+		}
+
+		Pet.findOneAndUpdate({ _id: id }, { $unset: { adopter: 1 } })
+			.then((_) => {
+				res.status(200).json({ message: 'Dado alterado com sucesso.' });
+			})
+			.catch((err) => {
+				res.status(500).json({ message: 'Erro.', err });
+			});
 	}
 };

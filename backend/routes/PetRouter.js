@@ -26,5 +26,6 @@ router.patch(
 );
 router.patch('/schedule/:id', verifyToken, PetControllers.schedule);
 router.patch('/complete/:id', verifyToken, PetControllers.completeAdoption);
+router.patch('/refuse/:id', verifyToken, PetControllers.refuseAdoption);
 
 module.exports = router;
