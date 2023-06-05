@@ -242,7 +242,7 @@ module.exports = class PetControllers {
 		}
 
 		if (pet.adopter?._id.equals(user._id)) {
-			res.status(202).json({ message: 'Você já agendou uma visita!' });
+			res.status(422).json({ message: 'Você já agendou uma visita!' });
 			return;
 		}
 
