@@ -16,6 +16,7 @@ function MyPets() {
 	const [pets, setPets] = useState([]);
 	const [token] = useState(localStorage.getItem('token') || '');
 	const { setFlashMessage } = useFlashMessage();
+	const [update, setUpdate] = useState(false);
 
 	useEffect(() => {
 		api
@@ -25,7 +26,7 @@ function MyPets() {
 			.then((response) => {
 				setPets(response.data.pets);
 			});
-	}, [token]);
+	}, [token, update]);
 
 	async function handleDeletePet(id) {
 		let msgType = 'success';
@@ -67,6 +68,28 @@ function MyPets() {
 			});
 
 		setFlashMessage(data.message, msgType);
+		setUpdate((prevState) => !prevState);
+	}
+
+	async function refuseAdoption(petId) {
+		let msgType = 'success';
+
+		const data = await api
+			.patch(`/pets/refuse/${petId}`, {
+				headers: {
+					Authorization: `Bearer ${JSON.parse(token)}`,
+				},
+			})
+			.then((response) => {
+				return response.data;
+			})
+			.catch((err) => {
+				msgType = 'error';
+				return err.response.data;
+			});
+
+		setFlashMessage(data.message, msgType);
+		setUpdate((prevState) => !prevState);
 	}
 
 	return (
@@ -88,16 +111,42 @@ function MyPets() {
 									width='px75'
 								/>
 								<span className='bold'>{pet.name}</span>
+								{pet.adopter && pet.available && (
+									<p>
+										Visita solicitada por:
+										<span className='bold'> {pet.adopter.name} </span>
+										<br></br>
+										Telefone:
+										<span className='bold'> {pet.adopter.phone} </span>
+									</p>
+								)}
+								{pet.adopter && !pet.available && (
+									<p>
+										Adotado por:
+										<span className='bold'> {pet.adopter.name} </span>
+										<br></br>
+										Telefone:
+										<span className='bold'> {pet.adopter.phone} </span>
+									</p>
+								)}
 								<div className={dashStyle.actions}>
 									{pet.available ? (
 										<>
 											{pet.adopter && (
-												<button
-													className={dashStyle.conclude_btn}
-													onClick={() => concludeAdoption(pet._id)}
-												>
-													Concluir adoção
-												</button>
+												<>
+													<button
+														className={dashStyle.conclude_btn}
+														onClick={() => concludeAdoption(pet._id)}
+													>
+														Concluir adoção
+													</button>
+													<button
+														className={dashStyle.refuse_btn}
+														onClick={() => refuseAdoption(pet._id)}
+													>
+														Recusar adoção
+													</button>
+												</>
 											)}
 											<Link to={`/pets/edit/${pet._id}`}>Editar</Link>
 											<button onClick={() => handleDeletePet(pet._id)}>
