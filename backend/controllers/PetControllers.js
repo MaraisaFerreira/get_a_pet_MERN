@@ -237,7 +237,7 @@ module.exports = class PetControllers {
 		const user = await getUserByToken(token);
 
 		if (pet.user._id.equals(user._id)) {
-			res.status(202).json({ message: 'Esse pet já é seu!' });
+			res.status(422).json({ message: 'Esse pet já é seu!' });
 			return;
 		}
 
