@@ -47,7 +47,7 @@ function MyAdoptions() {
 									{pet.available ? (
 										<p>Adoção em andamento.</p>
 									) : (
-										<p>Pet Adotado.</p>
+										<p>Parabéns, você adotou esse pet.</p>
 									)}
 								</div>
 							</div>
