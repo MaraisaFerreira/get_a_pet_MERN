@@ -1,5 +1,11 @@
+/* styles */
+import styles from './Dashboard.module.css';
+
 /* hooks */
 import { useEffect, useState } from 'react';
+
+/* components */
+import RoundedImage from '../../layouts/RoundedImage';
 
 import api from '../../../utils/api';
 
@@ -15,13 +21,42 @@ function MyAdoptions() {
 				},
 			})
 			.then((response) => {
-				console.log(response.data);
+				setPets(response.data.pets);
 			});
 	}, [token]);
 
 	return (
 		<section>
-			<h1>Minhas Adoções</h1>
+			{pets.length > 0 ? (
+				<>
+					<div className={styles.petslist_header}>
+						<h1>Minhas Adoções</h1>
+					</div>
+					<div className={styles.petslist_container}>
+						{pets.map((pet) => (
+							<div key={pet._id} className={styles.petlist_row}>
+								<RoundedImage
+									src={`${import.meta.env.VITE_REACT_APP_API}/images/pets/${
+										pet.images[0]
+									}`}
+									alt={pet.name}
+									width='px75'
+								/>
+								<span className='bold'>{pet.name}</span>
+								<div className={styles.actions}>
+									{pet.available ? (
+										<p>Adoção em andamento.</p>
+									) : (
+										<p>Pet Adotado.</p>
+									)}
+								</div>
+							</div>
+						))}
+					</div>
+				</>
+			) : (
+				<p>Você ainda não solicitou nenhuma visita.</p>
+			)}
 		</section>
 	);
 }
