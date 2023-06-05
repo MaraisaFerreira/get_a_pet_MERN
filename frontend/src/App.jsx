@@ -12,6 +12,7 @@ import Message from './components/layouts/Message';
 import Navbar from './components/layouts/Navbar';
 import AddPets from './components/pages/pet/AddPets';
 import EditPet from './components/pages/pet/EditPet';
+import MyAdoptions from './components/pages/pet/MyAdoptions';
 import MyPets from './components/pages/pet/MyPets';
 import PetDetails from './components/pages/pet/PetDetails';
 import Profile from './components/pages/user/Profile';
@@ -34,6 +35,7 @@ function App() {
 						<Route path='/pets/mypets' element={<MyPets />} />
 						<Route path='/pets/add' element={<AddPets />} />
 						<Route path='/pets/edit/:id' element={<EditPet />} />
+						<Route path='/pets/myadoptions' element={<MyAdoptions />} />
 						<Route path='/pets/:id' element={<PetDetails />} />
 					</Routes>
 				</Container>
