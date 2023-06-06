@@ -23,6 +23,7 @@ function PetDetails() {
 
 	async function schedule() {
 		let msgType = 'success';
+		console.log(`Bearer ${JSON.parse(token)}`);
 
 		const data = await api
 			.patch(`/pets/schedule/${id}`, {

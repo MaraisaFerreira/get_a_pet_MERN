@@ -18,14 +18,14 @@ router.get('/mypets', verifyToken, PetControllers.getAllUserPets);
 router.get('/myadoptions', verifyToken, PetControllers.getMyAdoptions);
 router.get('/:id', PetControllers.getPetById);
 router.delete('/:id', verifyToken, PetControllers.removeById);
+router.patch('/schedule/:id', verifyToken, PetControllers.schedule);
+router.patch('/complete/:id', verifyToken, PetControllers.completeAdoption);
+router.patch('/refuse/:id', verifyToken, PetControllers.refuseAdoption);
 router.patch(
 	'/:id',
 	verifyToken,
 	imageUpload.array('images'),
 	PetControllers.updateById,
 );
-router.patch('/schedule/:id', verifyToken, PetControllers.schedule);
-router.patch('/complete/:id', verifyToken, PetControllers.completeAdoption);
-router.patch('/refuse/:id', verifyToken, PetControllers.refuseAdoption);
 
 module.exports = router;

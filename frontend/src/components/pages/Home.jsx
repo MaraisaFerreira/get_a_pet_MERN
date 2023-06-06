@@ -18,14 +18,25 @@ function Home() {
 	async function sortBy(e) {
 		const type = e.target.innerText;
 
-		api
-			.get(`/pets/all/${type}`)
-			.then((response) => {
-				setPets(response.data.pets);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		if (type !== 'Todos') {
+			api
+				.get(`/pets/all/${type}`)
+				.then((response) => {
+					setPets(response.data.pets);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		} else {
+			api
+				.get(`/pets`)
+				.then((response) => {
+					setPets(response.data.pets);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	}
 
 	return (
@@ -42,6 +53,7 @@ function Home() {
 						<button onClick={sortBy}>Cachorros</button>
 						<button onClick={sortBy}>Coelhos</button>
 						<button onClick={sortBy}>Ramsters</button>
+						<button onClick={sortBy}>Todos</button>
 					</p>
 				</div>
 			</div>
@@ -60,7 +72,7 @@ function Home() {
 							<h3>{pet.name}</h3>
 							<p>
 								<span className='bold'>Idade: </span>
-								{pet.age}
+								{pet.age} ano(s)
 							</p>
 							{pet.available ? (
 								pet.adopter ? (
