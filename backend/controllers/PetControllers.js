@@ -41,7 +41,7 @@ module.exports = class PetControllers {
 
 		const pet = new Pet({
 			name,
-			type,
+			type: type.toLowerCase(),
 			age,
 			weight,
 			color,
@@ -93,6 +93,7 @@ module.exports = class PetControllers {
 
 	static async getPetsByType(req, res) {
 		let type = req.params.type;
+		type = type.toLowerCase();
 		if (type.endsWith('s')) {
 			type = type.slice(0, -1);
 		}
