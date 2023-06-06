@@ -6,6 +6,8 @@ const createUserToken = require('../helpers/createUserToken');
 const getToken = require('../helpers/getToken');
 const getUserByToken = require('../helpers/getUserByToken');
 
+const ObjectId = require('mongoose').Types.ObjectId;
+
 module.exports = class UserControllers {
 	static async register(req, res) {
 		const { name, email, phone, password, confirmPassword } = req.body;
@@ -113,6 +115,10 @@ module.exports = class UserControllers {
 
 	static async getUserById(req, res) {
 		const id = req.params.id;
+		if (!ObjectId.isValid(id)) {
+			res.status(422).json({ message: 'Id inválido' });
+			return;
+		}
 
 		const user = await User.findById(id).select('-password');
 
