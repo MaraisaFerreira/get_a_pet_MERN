@@ -39,7 +39,13 @@ function Home() {
 								{pet.age}
 							</p>
 							{pet.available ? (
-								<Link to={`/pets/${pet._id}`}>Saiba mais</Link>
+								pet.adopter ? (
+									<Link className={style.reserved} to={`/pets/${pet._id}`}>
+										Adoção em análise
+									</Link>
+								) : (
+									<Link to={`/pets/${pet._id}`}>Saiba mais</Link>
+								)
 							) : (
 								<p className={style.adopted_text}>Já Adotado.</p>
 							)}
