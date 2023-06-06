@@ -15,11 +15,26 @@ function Home() {
 		});
 	}, []);
 
+	function sortBy(e) {
+		console.log(e.target.innerText);
+	}
+
 	return (
 		<section>
 			<div className={style.home_header}>
-				<h1>Adote um pet</h1>
-				<p>Clique em saiba mais para ver mais detalhes do pet.</p>
+				<div>
+					<h1>Adote um pet</h1>
+					<p>Clique em saiba mais para ver mais detalhes do pet.</p>
+				</div>
+				<div>
+					<p>
+						Buscar por:
+						<button onClick={sortBy}>Gatos</button>
+						<button onClick={sortBy}>Cachorros</button>
+						<button onClick={sortBy}>Coelhos</button>
+						<button onClick={sortBy}>Ramsters</button>
+					</p>
+				</div>
 			</div>
 			<div className={style.pet_container}>
 				{pets.length > 0 ? (

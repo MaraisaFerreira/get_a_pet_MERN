@@ -1,9 +1,30 @@
 .home_header {
 	margin-bottom: 2em;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .home_header h1 {
 	margin-bottom: 0.3em;
+}
+
+.home_header button {
+	text-decoration: none;
+	color: var(--blue-accent);
+	font-weight: bold;
+	font-size: 1em;
+	transition: 0.5s;
+	cursor: pointer;
+	padding: 0.5em 0.8em;
+	border-radius: 5px;
+	border: none;
+	background-color: transparent;
+}
+
+.home_header button:hover {
+	background-color: #ffd400;
+	color: #fff;
 }
 
 .pet_container {
