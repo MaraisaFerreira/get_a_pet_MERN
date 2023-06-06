@@ -52,7 +52,7 @@ function Home() {
 						<button onClick={sortBy}>Gatos</button>
 						<button onClick={sortBy}>Cachorros</button>
 						<button onClick={sortBy}>Coelhos</button>
-						<button onClick={sortBy}>Ramsters</button>
+						<button onClick={sortBy}>Hamsters</button>
 						<button onClick={sortBy}>Todos</button>
 					</p>
 				</div>
