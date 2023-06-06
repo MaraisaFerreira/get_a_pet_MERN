@@ -20,7 +20,7 @@ function PetForm({ petData, textSubmit, handleSubmit }) {
 		'branco e preto',
 	];
 
-	const petType = ['gato', 'cachorro', 'coelho', 'ramster'];
+	const petType = ['gato', 'cachorro', 'coelho', 'hamster'];
 
 	function handleOnChange(e) {
 		setPet({ ...pet, [e.target.name]: e.target.value });
