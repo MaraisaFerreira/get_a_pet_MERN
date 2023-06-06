@@ -15,8 +15,17 @@ function Home() {
 		});
 	}, []);
 
-	function sortBy(e) {
-		console.log(e.target.innerText);
+	async function sortBy(e) {
+		const type = e.target.innerText;
+
+		api
+			.get(`/pets/all/${type}`)
+			.then((response) => {
+				setPets(response.data.pets);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	}
 
 	return (
