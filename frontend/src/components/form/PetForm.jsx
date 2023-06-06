@@ -12,15 +12,15 @@ function PetForm({ petData, textSubmit, handleSubmit }) {
 	const [preview, setPreview] = useState([]);
 
 	const colors = [
-		'Branco',
-		'Preto',
-		'Amarelo',
-		'Tricolor',
-		'Cinza',
-		'Branco e Preto',
+		'branco',
+		'preto',
+		'amarelo',
+		'tricolor',
+		'cinza',
+		'branco e preto',
 	];
 
-	const petType = ['Gato', 'Cachorro', 'Coelho', 'Ramster'];
+	const petType = ['gato', 'cachorro', 'coelho', 'ramster'];
 
 	function handleOnChange(e) {
 		setPet({ ...pet, [e.target.name]: e.target.value });
