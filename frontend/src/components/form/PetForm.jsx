@@ -18,6 +18,7 @@ function PetForm({ petData, textSubmit, handleSubmit }) {
 		'tricolor',
 		'cinza',
 		'branco e preto',
+		'mesclado',
 	];
 
 	const petType = ['gato', 'cachorro', 'coelho', 'hamster'];
