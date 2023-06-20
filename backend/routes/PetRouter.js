@@ -11,11 +11,11 @@ router.post(
 	imageUpload.array('images'),
 	PetControllers.create,
 );
-
 router.get('/', PetControllers.getAll);
-router.get('/all/:type', PetControllers.getPetsByType);
 router.get('/mypets', verifyToken, PetControllers.getAllUserPets);
 router.get('/myadoptions', verifyToken, PetControllers.getMyAdoptions);
+
+router.get('/all/:type', PetControllers.getPetsByType);
 router.get('/:id', PetControllers.getPetById);
 router.delete('/:id', verifyToken, PetControllers.removeById);
 router.patch('/schedule/:id', verifyToken, PetControllers.schedule);
