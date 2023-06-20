@@ -144,10 +144,6 @@ module.exports = class UserControllers {
 
 		if (req.file) {
 			user.image = req.file.filename;
-			console.log(
-				'🔷 | file: UserControllers.js:141 | req.file.filename:',
-				req.file.filename,
-			);
 		}
 
 		if (!name) {
@@ -209,7 +205,6 @@ module.exports = class UserControllers {
 			user.password = hashPassword;
 		}
 
-		console.log(user);
 		try {
 			const updatedUser = await User.findOneAndUpdate(
 				{ _id: user.id },
