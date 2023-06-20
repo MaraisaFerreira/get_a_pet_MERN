@@ -227,6 +227,10 @@ module.exports = class PetControllers {
 	static async schedule(req, res) {
 		const id = req.params.id;
 
+		if (!ObjectId.isValid(id)) {
+			res.status(422).json({ message: 'Id inválido' });
+			return;
+		}
 		const pet = await Pet.findById(id);
 
 		if (!pet) {
@@ -258,6 +262,7 @@ module.exports = class PetControllers {
 		pet.adopter = {
 			_id: user._id,
 			name: user.name,
+			phone: user.phone,
 			image: user.image,
 		};
 
