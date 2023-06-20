@@ -18,10 +18,6 @@ module.exports = class PetControllers {
 			res.status(422).json({ message: 'O nome é obrigatório!' });
 			return;
 		}
-		if (images.length === 0) {
-			res.status(422).json({ message: 'Ao menos uma imagem é obrigatória!' });
-			return;
-		}
 		if (!type) {
 			res.status(422).json({ message: 'O tipo é obrigatório!' });
 			return;
@@ -36,6 +32,10 @@ module.exports = class PetControllers {
 		}
 		if (!color) {
 			res.status(422).json({ message: 'A cor é obrigatória!' });
+			return;
+		}
+		if (images.length === 0) {
+			res.status(422).json({ message: 'Ao menos uma imagem é obrigatória!' });
 			return;
 		}
 
