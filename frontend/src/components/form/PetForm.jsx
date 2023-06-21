@@ -8,7 +8,7 @@ import InputSelect from './InputSelect';
 import { useState } from 'react';
 
 function PetForm({ petData, textSubmit, handleSubmit }) {
-	const [pet, setPet] = useState(petData || {});
+	const [pet, setPet] = useState(petData || { ageType: 'ano' });
 	const [preview, setPreview] = useState([]);
 
 	const colors = [
@@ -52,7 +52,6 @@ function PetForm({ petData, textSubmit, handleSubmit }) {
 
 	function submit(e) {
 		e.preventDefault();
-		console.log(pet);
 		handleSubmit(pet);
 	}
 
