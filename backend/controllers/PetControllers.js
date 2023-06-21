@@ -162,7 +162,6 @@ module.exports = class PetControllers {
 		const images = req.files;
 
 		const updatedData = {};
-		console.log('AGETYPE', ageType);
 
 		if (!ObjectId.isValid(id)) {
 			res.status(422).json({ message: 'Id inválido' });
