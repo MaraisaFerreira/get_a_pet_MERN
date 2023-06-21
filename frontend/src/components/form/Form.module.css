@@ -49,6 +49,26 @@
 	text-decoration: none;
 }
 
+.form_container .age_type {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 100%;
+	padding: 8px;
+	margin-bottom: 10px;
+}
+
+.form_container .age_type input[type='radio'] {
+	margin-right: 10px;
+	transform: scale(1.1);
+}
+
+.form_container .age_type label {
+	margin: 0 25px;
+	font-weight: bold;
+	font-size: 0.9em;
+}
+
 /* pets */
 .preview_imgs_pet {
 	display: flex;

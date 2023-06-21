@@ -46,6 +46,10 @@ function PetForm({ petData, textSubmit, handleSubmit }) {
 		});
 	}
 
+	function handleAgeType(e) {
+		setPet({ ...pet, [e.target.name]: e.target.value });
+	}
+
 	function submit(e) {
 		e.preventDefault();
 		console.log(pet);
@@ -90,6 +94,30 @@ function PetForm({ petData, textSubmit, handleSubmit }) {
 				handleOnChange={handleOnChange}
 				value={pet.age || ''}
 			/>
+			<div className={formStyles.age_type}>
+				<label htmlFor='mes'>
+					<input
+						type='radio'
+						id='mes'
+						name='ageType'
+						value='mes'
+						onChange={handleAgeType}
+						checked={pet.ageType === 'mes' || ''}
+					/>
+					Mês
+				</label>
+				<label htmlFor='ano'>
+					<input
+						type='radio'
+						id='ano'
+						name='ageType'
+						value='ano'
+						onChange={handleAgeType}
+						checked={pet.ageType === 'ano' || ''}
+					/>
+					Ano
+				</label>
+			</div>
 			<Input
 				text='Peso'
 				type='number'
