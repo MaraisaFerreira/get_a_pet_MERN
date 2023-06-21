@@ -23,10 +23,9 @@ function PetDetails() {
 
 	async function schedule() {
 		let msgType = 'success';
-		console.log(`Bearer ${JSON.parse(token)}`);
 
 		const data = await api
-			.patch(`/pets/schedule/${id}`, {
+			.patch(`pets/schedule/${pet._id}`, {
 				headers: {
 					Authorization: `Bearer ${JSON.parse(token)}`,
 				},
@@ -35,6 +34,7 @@ function PetDetails() {
 				return response.data;
 			})
 			.catch((err) => {
+				console.log(err);
 				msgType = 'error';
 				return err.response.data;
 			});
@@ -71,12 +71,11 @@ function PetDetails() {
 					</p>
 
 					{token ? (
-						<button onClick={schedule}>Solicitar visita</button>
+						<button onClick={schedule}>Solicitar uma Visita</button>
 					) : (
 						<p>
-							Para agendar uma visita,
-							<Link to='\register'> crie uma conta</Link> ou faça
-							<Link to='/login'> login</Link>
+							Você precisa <Link to='/register'>criar uma conta</Link> para
+							solicitar a visita.
 						</p>
 					)}
 				</section>
