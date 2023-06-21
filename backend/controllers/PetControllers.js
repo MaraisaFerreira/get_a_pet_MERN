@@ -7,7 +7,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = class PetControllers {
 	static async create(req, res) {
-		const { name, type, age, weight, color } = req.body;
+		const { name, type, age, weight, color, ageType } = req.body;
 
 		const images = req.files;
 
@@ -24,6 +24,10 @@ module.exports = class PetControllers {
 		}
 		if (!age) {
 			res.status(422).json({ message: 'A idade é obrigatória!' });
+			return;
+		}
+		if (!ageType) {
+			res.status(422).json({ message: 'Mes ou Ano?' });
 			return;
 		}
 		if (!weight) {
@@ -43,6 +47,7 @@ module.exports = class PetControllers {
 			name,
 			type: type.toLowerCase(),
 			age,
+			ageType,
 			weight,
 			color,
 			available: true,
@@ -54,6 +59,7 @@ module.exports = class PetControllers {
 				image: user.image,
 			},
 		});
+		console.log('PET', pet);
 
 		images.map((image) => {
 			pet.images.push(image.filename);
@@ -152,10 +158,11 @@ module.exports = class PetControllers {
 
 	static async updateById(req, res) {
 		const id = req.params.id;
-		const { name, age, type, color, weight, available } = req.body;
+		const { name, age, type, color, weight, available, ageType } = req.body;
 		const images = req.files;
 
 		const updatedData = {};
+		console.log('AGETYPE', ageType);
 
 		if (!ObjectId.isValid(id)) {
 			res.status(422).json({ message: 'Id inválido' });
@@ -199,6 +206,11 @@ module.exports = class PetControllers {
 			res.status(422).json({ message: 'A idade é obrigatória!' });
 			return;
 		}
+		if (!ageType) {
+			res.status(422).json({ message: 'Meses ou Anos?' });
+			return;
+		}
+		updatedData.ageType = ageType;
 		updatedData.age = age;
 		if (!weight) {
 			res.status(422).json({ message: 'O peso é obrigatório!' });
