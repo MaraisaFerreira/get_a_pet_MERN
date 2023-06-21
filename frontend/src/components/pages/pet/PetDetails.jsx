@@ -62,7 +62,7 @@ function PetDetails() {
 					</div>
 					<p>
 						<span className='bold'>Idade: </span>
-						{pet.age} ano(s) &nbsp;
+						{pet.age} {pet.ageType}(s) &nbsp;
 						<span className='bold'>Peso: </span>
 						{pet.weight} kilo(s) &nbsp;
 						<span className='bold'>Cor: </span>

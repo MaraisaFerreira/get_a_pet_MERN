@@ -113,7 +113,7 @@ function PetForm({ petData, textSubmit, handleSubmit }) {
 						name='ageType'
 						value='ano'
 						onChange={handleAgeType}
-						checked={pet.ageType === 'ano' || ''}
+						checked={pet.ageType === 'ano' ? true : pet.ageType !== 'mes'}
 					/>
 					Ano
 				</label>

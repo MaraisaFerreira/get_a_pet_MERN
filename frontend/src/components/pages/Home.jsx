@@ -72,7 +72,7 @@ function Home() {
 							<h3>{pet.name}</h3>
 							<p>
 								<span className='bold'>Idade: </span>
-								{pet.age} ano(s)
+								{pet.age} {pet.ageType}
 							</p>
 							{pet.available ? (
 								pet.adopter ? (
