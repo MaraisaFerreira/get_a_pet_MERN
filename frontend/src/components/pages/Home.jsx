@@ -73,6 +73,7 @@ function Home() {
 							<p>
 								<span className='bold'>Idade: </span>
 								{pet.age} {pet.ageType}
+								{pet.ageType === 'mes' ? '(es)' : '(s)'}
 							</p>
 							{pet.available ? (
 								pet.adopter ? (
