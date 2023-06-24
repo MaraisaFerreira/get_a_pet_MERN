@@ -27,7 +27,6 @@ function Profile() {
 	function handleFile(e) {
 		setPreview(e.target.files[0]);
 		setUser({ ...user, [e.target.name]: e.target.files[0] });
-		console.log(preview);
 	}
 
 	async function handleSubmit(e) {

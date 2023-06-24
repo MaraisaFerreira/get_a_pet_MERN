@@ -59,7 +59,6 @@ module.exports = class PetControllers {
 				image: user.image,
 			},
 		});
-		console.log('PET', pet);
 
 		images.map((image) => {
 			pet.images.push(image.filename);
