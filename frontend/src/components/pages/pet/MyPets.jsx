@@ -21,7 +21,9 @@ function MyPets() {
 	useEffect(() => {
 		api
 			.get('/pets/mypets', {
-				headers: { Authorization: `Bearer ${JSON.parse(token)}` },
+				headers: {
+					Authorization: `Bearer ${JSON.parse(token)}`,
+				},
 			})
 			.then((response) => {
 				setPets(response.data.pets);
@@ -54,11 +56,15 @@ function MyPets() {
 		let msgType = 'success';
 
 		const data = await api
-			.patch(`/pets/complete/${petId}`, {
-				headers: {
-					Authorization: `Bearer ${JSON.parse(token)}`,
+			.patch(
+				`/pets/complete/${petId}`,
+				{},
+				{
+					headers: {
+						Authorization: `Bearer ${JSON.parse(token)}`,
+					},
 				},
-			})
+			)
 			.then((response) => {
 				return response.data;
 			})
@@ -75,11 +81,15 @@ function MyPets() {
 		let msgType = 'success';
 
 		const data = await api
-			.patch(`/pets/refuse/${petId}`, {
-				headers: {
-					Authorization: `Bearer ${JSON.parse(token)}`,
+			.patch(
+				`/pets/refuse/${petId}`,
+				{},
+				{
+					headers: {
+						Authorization: `Bearer ${JSON.parse(token)}`,
+					},
 				},
-			})
+			)
 			.then((response) => {
 				return response.data;
 			})
